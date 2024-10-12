@@ -1,5 +1,6 @@
 package com.shadcn.fileservice.config;
 
+import static com.shadcn.fileservice.constant.PathConstant.PUBLIC_ENDPOINTS;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +12,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
-
-import static com.shadcn.fileservice.constant.PathConstant.PUBLIC_ENDPOINTS;
 
 @Configuration
 @EnableWebSecurity

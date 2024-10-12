@@ -1,12 +1,6 @@
 package com.shadcn.fileservice.service.impl;
 
-import com.shadcn.fileservice.service.IStreamVideoService;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Service;
+import static com.shadcn.fileservice.constant.System.FILE_UPLOAD_PATH;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -15,7 +9,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static com.shadcn.fileservice.constant.System.FILE_UPLOAD_PATH;
+import jakarta.servlet.http.HttpServletRequest;
+
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
+
+import com.shadcn.fileservice.service.IStreamVideoService;
 
 @Service
 public class StreamVideoService implements IStreamVideoService {
@@ -35,7 +37,8 @@ public class StreamVideoService implements IStreamVideoService {
         headers.setContentType(MediaType.parseMediaType("video/mp4"));
 
         String rangeHeader = request.getHeader("Range");
-        String contentType = request.getServletContext().getMimeType(videoResource.getFile().getAbsolutePath());
+        String contentType =
+                request.getServletContext().getMimeType(videoResource.getFile().getAbsolutePath());
         if (contentType == null) {
             contentType = "application/octet-stream";
         }
