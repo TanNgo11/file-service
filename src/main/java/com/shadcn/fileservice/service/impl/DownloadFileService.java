@@ -1,17 +1,19 @@
 package com.shadcn.fileservice.service.impl;
 
-import com.shadcn.fileservice.service.IDownloadFileService;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
+import static com.shadcn.fileservice.constant.System.FILE_UPLOAD_PATH;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static com.shadcn.fileservice.constant.System.FILE_UPLOAD_PATH;
+import jakarta.servlet.http.HttpServletRequest;
+
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
+
+import com.shadcn.fileservice.service.IDownloadFileService;
 
 @Service
 public class DownloadFileService implements IDownloadFileService {
@@ -29,7 +31,8 @@ public class DownloadFileService implements IDownloadFileService {
 
         String contentType = null;
         try {
-            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+            contentType =
+                    request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         } catch (IOException ex) {
             contentType = "application/octet-stream";
         }

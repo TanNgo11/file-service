@@ -1,9 +1,10 @@
 package com.shadcn.fileservice.service;
 
-import com.shadcn.fileservice.dto.response.FileUploadResponse;
+import java.io.IOException;
+
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import com.shadcn.fileservice.dto.response.FileUploadResponse;
 
 public interface IUploadFileService {
     FileUploadResponse uploadFile(MultipartFile multipartFile) throws IOException;

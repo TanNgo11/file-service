@@ -1,10 +1,16 @@
 package com.shadcn.fileservice.controller;
 
-import com.shadcn.fileservice.service.IStreamVideoService;
+import static com.shadcn.fileservice.constant.System.FILE_UPLOAD_PATH;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
+
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -15,14 +21,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import com.shadcn.fileservice.service.IStreamVideoService;
 
-import static com.shadcn.fileservice.constant.System.FILE_UPLOAD_PATH;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,10 +33,9 @@ import static com.shadcn.fileservice.constant.System.FILE_UPLOAD_PATH;
 public class VideoStreamingController {
     private final Path fileStorageLocation = Paths.get(FILE_UPLOAD_PATH);
     IStreamVideoService streamVideoService;
-   
 
     @GetMapping("/streamVideo/{fileCode}")
-     ResponseEntity<Resource> streamVideo(@PathVariable String fileCode, HttpServletRequest request) throws IOException {
+    ResponseEntity<Resource> streamVideo(@PathVariable String fileCode, HttpServletRequest request) throws IOException {
         Path videoPath = Files.walk(this.fileStorageLocation)
                 .filter(path -> path.toString().contains(fileCode))
                 .findFirst()
