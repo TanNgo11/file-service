@@ -10,19 +10,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import static com.shadcn.fileservice.constant.System.FILE_UPLOAD_PATH;
+
 public class FileUploadUtil {
+    private static final Path fileStorageLocation = Paths.get(FILE_UPLOAD_PATH);
+    
     public static String saveFile(String fileName, MultipartFile multipartFile)
             throws IOException {
-        Path uploadPath = Paths.get("Files-Upload");
 
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
+        if (!Files.exists(fileStorageLocation)) {
+            Files.createDirectories(fileStorageLocation);
         }
-
+        //naming a file
         String fileCode = RandomStringUtils.randomAlphanumeric(8);
-
         try (InputStream inputStream = multipartFile.getInputStream()) {
-            Path filePath = uploadPath.resolve(fileCode + "-" + fileName);
+            Path filePath = fileStorageLocation.resolve(fileCode + "-" + fileName);
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ioe) {
             throw new IOException("Could not save file: " + fileName, ioe);
@@ -30,6 +32,4 @@ public class FileUploadUtil {
 
         return fileCode;
     }
-
-    
 }

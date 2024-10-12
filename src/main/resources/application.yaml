@@ -1,7 +1,7 @@
 server:
-  port: 8083
+  port: 8085
   servlet:
-    context-path: /file
+    context-path: /file-svc
 
 spring:
   application:
