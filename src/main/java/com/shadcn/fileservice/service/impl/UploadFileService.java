@@ -14,6 +14,15 @@ import com.shadcn.fileservice.utils.FileUploadUtil;
 public class UploadFileService implements IUploadFileService {
 
     @Override
+    public FileUploadResponse[] uploadFile(MultipartFile[] multipartFile) throws IOException {
+        FileUploadResponse[] responses = new FileUploadResponse[multipartFile.length];
+        for (int i = 0; i < multipartFile.length; i++) {
+            responses[i] = uploadFile(multipartFile[i]);
+        }
+        return responses;
+    }
+
+    @Override
     public FileUploadResponse uploadFile(MultipartFile multipartFile) throws IOException {
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         long size = multipartFile.getSize();

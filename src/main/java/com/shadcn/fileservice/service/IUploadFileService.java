@@ -8,4 +8,6 @@ import com.shadcn.fileservice.dto.response.FileUploadResponse;
 
 public interface IUploadFileService {
     FileUploadResponse uploadFile(MultipartFile multipartFile) throws IOException;
+
+    FileUploadResponse[] uploadFile(MultipartFile[] multipartFile) throws IOException;
 }
