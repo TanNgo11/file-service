@@ -24,4 +24,11 @@ public class FileUploadController {
         FileUploadResponse response = uploadFileService.uploadFile(multipartFile);
         return ApiResponse.success(response);
     }
+
+    @PostMapping("/upload/multiple")
+    ApiResponse<FileUploadResponse[]> uploadMultipleFile(@RequestParam("files") MultipartFile[] multipartFiles)
+            throws IOException {
+        FileUploadResponse[] response = uploadFileService.uploadFile(multipartFiles);
+        return ApiResponse.success(response);
+    }
 }
